@@ -49,9 +49,15 @@
 <!--		</dependency>-->
 
 		<!-- azure openai -->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.ai</groupId>-->
+<!--			<artifactId>spring-ai-starter-model-azure-openai</artifactId>-->
+<!--		</dependency>-->
+
+		<!-- deepseek -->
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-starter-model-azure-openai</artifactId>
+			<artifactId>spring-ai-starter-model-deepseek</artifactId>
 		</dependency>
 
 		<dependency>
