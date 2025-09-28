@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +15,12 @@ import { NgClass } from '@angular/common';
 })
 export class SimpleChat {
 
+  @ViewChild('chatHistory')
+  private chatHistory!: ElementRef;
+
   userInput = '';
+
+  isLoading = signal(false);
 
   messages = signal([
     { text: 'Hello, how can I help you?', isBot: true }
@@ -23,8 +28,9 @@ export class SimpleChat {
 
   sendMessage() {
     this.trimUserMessage();
-    if (this.userInput !== '') {
+    if (this.userInput !== '' && !this.isLoading()) {
       this.updateMessage(this.userInput);
+      this.isLoading.set(true);
       this.userInput = '';
       this.simulateBotResponse();
     }
@@ -32,6 +38,7 @@ export class SimpleChat {
 
   private updateMessage(text: string, isBot = false) {
     this.messages.update(messages => [...messages, { text, isBot }]);
+    this.scrollToBottom();
   }
 
   private trimUserMessage() {
@@ -41,7 +48,14 @@ export class SimpleChat {
   private simulateBotResponse() {
     setTimeout(() => {
       this.updateMessage('This is a simulated bot response.', true);
+      this.isLoading.set(false);
     }, 2000);
+  }
+
+  private scrollToBottom() {
+    try {
+      this.chatHistory.nativeElement.scrollTop = this.chatHistory.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 
 }
