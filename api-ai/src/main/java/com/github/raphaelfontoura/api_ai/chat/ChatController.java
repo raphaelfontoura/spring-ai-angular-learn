@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.raphaelfontoura.api_ai.memory.ChatMessage;
+
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -21,10 +23,10 @@ public class ChatController {
     @PostMapping
     ChatMessage generation(@RequestBody ChatMessage message) {
         var response = this.chatClient.prompt()
-                .user(message.message())
+                .user(message.content())
                 .call()
                 .content();
-        return new ChatMessage(response);
+        return new ChatMessage(response, "ASSISTANT");
     }
 
 }

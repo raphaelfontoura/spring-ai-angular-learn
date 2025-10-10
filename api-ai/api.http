@@ -1,1 +1,47 @@
-GET localhost:8080/ai?userInput=Conte uma piada sobre Java
+### simple chat without memory
+
+GET http://localhost:8080/ai?userInput=Conte uma piada sobre Java
+
+###
+
+POST http://localhost:8080/api/chat
+Content-Type: application/json
+
+{
+  "message": "Conte uma piada sobre Java"
+}
+
+###
+
+POST http://localhost:8080/api/chat-memory
+Content-Type: application/json
+
+{
+  "message": "Conte uma piada sobre Java"
+}
+
+### chat with memory and conversation ID
+
+POST http://localhost:8080/api/chat-memory/start
+Content-Type: application/json
+
+{
+  "message": "Me conte uma piada sobre Java"
+}
+
+###
+POST http://localhost:8080/api/chat-memory/ae82efe0-0350-42ab-810f-08ccfaccc1d8
+Content-Type: application/json
+
+{
+  "message": "Agora me conte uma piada sobre Javascript"
+}
+
+###
+GET http://localhost:8080/api/chat-memory
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/api/chat-memory/ae82efe0-0350-42ab-810f-08ccfaccc1d8
+Content-Type: application/json
